@@ -6,7 +6,9 @@
 package com.rbvj.atos.vrental.controller;
 
 import com.rbvj.atos.vrental.DTO.ClientsDTO;
+import com.rbvj.atos.vrental.entity.Clients;
 import com.rbvj.atos.vrental.service.ClientsService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,12 +36,27 @@ public class ClientsController {
         return "clientcreate";
     }
     
+    @GetMapping(value = "/")
+    public String showList(Model model) {
+        List<Clients> listaClientes = clientsService.getAll();
+        /*for(int i=0; i<listaClientes.size(); i++) {
+            System.out.println("Username: "+listaClientes.get(i).getUsername());
+            System.out.println("\n");
+            System.out.println("\n");
+        }*/
+        for (Clients listaCliente : listaClientes) {
+            System.out.println("Username: "+listaCliente.getUsername());
+        }
+        model.addAttribute("listaClientes", listaClientes);
+        return "clients";
+    }
+    
     @PostMapping(value="save")
     public ModelAndView save(ClientsDTO client, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return new ModelAndView("clientscreate");
         }
         clientsService.save(client);
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/clients/");
     }
 }
