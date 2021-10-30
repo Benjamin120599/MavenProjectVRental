@@ -16,9 +16,8 @@
     </head>
     
     <body>
-        
-        <nav th:fragment="menu" id="menu" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-            <div class="container-fluid col-10">
+        <nav th:fragment="menu" id="menu" class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
                 <a class="navbar-brand" th:href="@{/}">VRental</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -56,6 +55,9 @@
                 </div>
             </div>
         </nav>
+        
+        
+        
         
         <div class="container">
             <!-- <div class="jumbotron">

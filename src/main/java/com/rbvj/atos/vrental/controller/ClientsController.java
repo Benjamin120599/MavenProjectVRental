@@ -9,6 +9,7 @@ import com.rbvj.atos.vrental.DTO.ClientsDTO;
 import com.rbvj.atos.vrental.entity.Clients;
 import com.rbvj.atos.vrental.service.ClientsService;
 import java.util.List;
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,9 +31,10 @@ public class ClientsController {
     @Autowired
     private ClientsService clientsService;
     
+    //@GetMapping(value = "/create")
     @GetMapping(value = "/create")
     public String profile(Model model) {
-        model.addAttribute("client", new ClientsDTO());
+        model.addAttribute("cl", new ClientsDTO());
         return "clientcreate";
     }
     
@@ -48,14 +50,16 @@ public class ClientsController {
             System.out.println("Username: "+listaCliente.getUsername());
         }
         model.addAttribute("listaClientes", listaClientes);
+        model.addAttribute("cl", new ClientsDTO());
         return "clients";
     }
     
     @PostMapping(value="save")
     public ModelAndView save(ClientsDTO client, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            return new ModelAndView("clientscreate");
+            return new ModelAndView("clients");
         }
+        System.out.println("USER: "+client.getUsername());
         clientsService.save(client);
         return new ModelAndView("redirect:/clients/");
     }
